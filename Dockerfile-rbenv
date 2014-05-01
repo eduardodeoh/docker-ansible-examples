@@ -1,0 +1,11 @@
+FROM eduardodeoh/ubuntu_core:14.04_with_ansible
+MAINTAINER eduardodeoh@gmail.com
+
+#PRE-REQUISITES
+RUN apt-get -y install git-core
+
+RUN adduser --disabled-password --gecos "" deploy
+ADD inventory /etc/ansible/hosts
+ADD ./playbook-rbenv.yml /tmp/playbook.yml
+RUN ansible-galaxy install eduardodeoh.rbenv
+RUN ansible-playbook /tmp/playbook.yml
