@@ -6,8 +6,9 @@ then
   exit 1
 fi
 
+TAG_NAME=$(echo $1 | cut -f2 -d-)
 
-IMAGE_NAME="eduardodeoh/docker-ansible:rbenv"
+IMAGE_NAME="eduardodeoh/docker-ansible:$TAG_NAME"
 
 DOCKERFILE="$1"
 
@@ -18,5 +19,6 @@ DOCKERFILE="$1"
 
 
 cp $DOCKERFILE Dockerfile
-docker.io build -t $IMAGE_NAME .
+shift
+docker.io build -t $IMAGE_NAME $* .
 rm Dockerfile
